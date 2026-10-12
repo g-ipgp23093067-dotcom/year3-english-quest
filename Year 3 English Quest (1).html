@@ -1,0 +1,203 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Year 3 English Quest</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: sticky header with star total, module picker grid, then one module workspace with Learn / Quiz / Build tabs */
+:root{
+  --bg:#eef3fb; --surface:#ffffff; --ink:#1b2742; --muted:#5a6784; --line:#d5dded;
+  --accent:#2f5bea; --accent-ink:#ffffff; --sun:#ffc83d; --good:#1f9d63; --good-bg:#dcf5e8; --bad:#d8453b; --bad-bg:#fde4e1;
+  --display:'Fredoka','Trebuchet MS',system-ui,sans-serif; --body:'Nunito',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111a2e; --surface:#1a2640; --ink:#eaf0ff; --muted:#a3b0cf; --line:#2f3d5f;
+  --accent:#7d9cff; --accent-ink:#0f1830; --sun:#ffd25a; --good:#4cd08c; --good-bg:#17382c; --bad:#ff8a80; --bad-bg:#43211f; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111a2e; --surface:#1a2640; --ink:#eaf0ff; --muted:#a3b0cf; --line:#2f3d5f;
+  --accent:#7d9cff; --accent-ink:#0f1830; --sun:#ffd25a; --good:#4cd08c; --good-bg:#17382c; --bad:#ff8a80; --bad-bg:#43211f; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.5;padding-inline:16px;padding-block:0 40px}
+.wrap{max-width:900px;margin-inline:auto}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:14px 10px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:2px solid var(--line)}
+h1{font-family:var(--display);font-size:1.7rem;margin:0;line-height:1.1;text-wrap:balance}
+h1 small{display:block;font-family:var(--body);font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.total{font-family:var(--display);font-weight:600;background:var(--sun);color:#3a2a00;padding:6px 14px;border-radius:999px;font-variant-numeric:tabular-nums}
+h2{font-family:var(--display);font-size:1.25rem;margin:22px 0 10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.mod{all:unset;box-sizing:border-box;cursor:pointer;background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.mod:hover{border-color:var(--accent)}
+.mod:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.mod[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:var(--accent-ink)}
+.mod .n{font-size:.75rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;opacity:.75}
+.mod .t{font-family:var(--display);font-weight:600;font-size:1.05rem;line-height:1.2}
+.mod .s{font-size:.9rem;letter-spacing:.1em;color:#b07d00}
+.mod[aria-pressed="true"] .s{color:var(--sun)}
+.panel{background:var(--surface);border:2px solid var(--line);border-radius:18px;padding:16px;margin-top:18px}
+.theme{margin:0;color:var(--muted);font-weight:700;font-size:.9rem}
+.modtitle{font-family:var(--display);font-size:1.6rem;margin:2px 0 12px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tab{all:unset;box-sizing:border-box;cursor:pointer;padding:8px 18px;border-radius:999px;border:2px solid var(--line);font-weight:800}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.card{border:2px solid var(--line);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.card .w{font-family:var(--display);font-size:1.6rem;font-weight:600;color:var(--accent)}
+.card p{margin:0}
+.card mark{background:var(--sun);color:#3a2a00;border-radius:4px;padding:0 4px;font-weight:800}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+button.btn{all:unset;box-sizing:border-box;cursor:pointer;background:var(--accent);color:var(--accent-ink);font-weight:800;padding:8px 16px;border-radius:10px;text-align:center}
+button.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--line)}
+button.btn:disabled{opacity:.45;cursor:default}
+.q{font-family:var(--display);font-size:1.45rem;line-height:1.35;margin:6px 0 14px;text-wrap:balance}
+.q .blank{display:inline-block;min-width:4.5ch;border-bottom:4px solid var(--sun);text-align:center;color:var(--accent)}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.opt{all:unset;box-sizing:border-box;cursor:pointer;text-align:center;border:2px solid var(--line);border-radius:12px;padding:12px 8px;font-weight:800;font-size:1.1rem}
+.opt:hover{border-color:var(--accent)}
+.opt.good{background:var(--good-bg);border-color:var(--good)}
+.opt.bad{background:var(--bad-bg);border-color:var(--bad)}
+.meta{display:flex;justify-content:space-between;color:var(--muted);font-weight:700;font-size:.9rem;font-variant-numeric:tabular-nums}
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:6px 0 14px}
+.bar i{display:block;height:100%;background:var(--accent)}
+.msg{min-height:1.6em;font-weight:800;margin:12px 0 0}
+.msg.good{color:var(--good)} .msg.bad{color:var(--bad)}
+.tray{min-height:58px;border:2px dashed var(--line);border-radius:12px;padding:8px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.tile{all:unset;box-sizing:border-box;cursor:pointer;background:var(--surface);border:2px solid var(--accent);color:var(--ink);border-radius:10px;padding:6px 14px;font-weight:800;font-size:1.1rem}
+.tray .tile{background:var(--accent);color:var(--accent-ink)}
+.done{text-align:center;padding:10px 0}
+.done .big{font-family:var(--display);font-size:2.2rem;color:#b07d00}
+.note{color:var(--muted);font-size:.85rem;margin-top:22px}
+@media (prefers-reduced-motion:no-preference){.opt,.mod,.tile{transition:transform .08s}.opt:active,.tile:active{transform:scale(.96)}}
+</style>
+<div class="wrap">
+<header>
+  <h1><small>KSSR English · Primary Year 3</small>Year 3 English Quest</h1>
+  <div class="total" id="total" aria-live="polite">0 stars</div>
+</header>
+<h2>Pick a module</h2>
+<div class="grid" id="mods"></div>
+<section class="panel" id="work" aria-live="polite"></section>
+<p class="note">Words and sentences follow the ten Year 3 module titles. Check them against your own copy of the textbook and edit the MODULES list in the page code if a word differs.</p>
+</div>
+<script>
+var MODULES=[
+{t:'Welcome!',th:'World of Self, Family and Friends',w:[
+['name','My ___ is Aina.'],['friend','Lee is my best ___. We play together every day.'],['teacher','The ___ reads us a story in class.'],['school','I learn many things at ___.'],['bag','I put my books in my ___.'],['pencil','I write with a ___.'],['ruler','I draw a straight line with a ___.'],['eraser','I rub out mistakes with the ___.']],
+ s:['Hello my name is Aina','She is my best friend','This is my new teacher']},
+{t:'Everyday',th:'World of Self, Family and Friends',w:[
+['breakfast','I eat ___ before school.'],['shower','I take a ___ in the morning.'],['homework','I do my ___ after school.'],['lunch','We eat ___ at noon.'],['dinner','My family has ___ at night.'],['sleep','I go to ___ at nine o\'clock.'],['bus','I go to school by ___.'],['brush','I ___ my teeth every day.']],
+ s:['I wake up at six o\'clock','She goes to school by bus','We eat dinner at night']},
+{t:'Right now',th:'World of Self, Family and Friends',w:[
+['reading','Ali is ___ a book. His eyes look at the words.'],['writing','I am ___ a letter with my pen.'],['running','The boys are ___ fast in the park.'],['drinking','She is ___ orange juice.'],['eating','He is ___ rice with chicken.'],['singing','Mei is ___ a song.'],['dancing','They are ___ at the party.'],['jumping','The frog is ___ high.']],
+ s:['The girl is reading a book','They are playing in the park','I am writing a letter']},
+{t:'Year in, year out',th:'World of Knowledge',w:[
+['birthday','I get a cake on my ___.'],['month','January is the first ___ of the year.'],['week','There are seven days in a ___.'],['year','There are twelve months in a ___.'],['Monday','The day after Sunday is ___.'],['Sunday','The day before Monday is ___.'],['calendar','I look at the ___ to see the date.'],['festival','Hari Raya is a happy ___.']],
+ s:['My birthday is in March','There are twelve months in a year','We celebrate Hari Raya with our family']},
+{t:'My new house',th:'World of Self, Family and Friends',w:[
+['kitchen','Mum cooks in the ___.'],['bedroom','I sleep in my ___.'],['bathroom','I take a bath in the ___.'],['garden','Flowers grow in the ___.'],['sofa','We sit on the ___ and watch TV.'],['table','We eat dinner at the ___.'],['window','I look outside through the ___.'],['door','Please open the ___.']],
+ s:['My new house has three bedrooms','The cat is under the table','There is a garden behind the house']},
+{t:'Food, please!',th:'World of Stories',w:[
+['rice','Nasi lemak is made with coconut ___.'],['noodles','Mee goreng is fried ___.'],['bread','I put jam on my ___.'],['milk','A cow gives us ___.'],['apple','I like to eat a sweet red ___.'],['chicken','Fried ___ is crispy and has bones.'],['water','I drink ___ when I am thirsty.'],['banana','A monkey likes to eat a ___.']],
+ s:['Can I have some water please?','I would like a plate of rice','Do you like fried chicken?']},
+{t:'Out and about',th:'World of Self, Family and Friends',w:[
+['library','I borrow books from the ___.'],['hospital','A doctor works in a ___.'],['market','Mum buys fish at the ___.'],['park','We play on the swings in the ___.'],['road','Look left and right before you cross the ___.'],['bridge','The car goes over the ___.'],['straight','Go ___ and then turn right.'],['corner','The shop is at the ___ of the street.']],
+ s:['The library is next to the bank','Turn left at the traffic light','Go straight and then turn right']},
+{t:'Where were you yesterday?',th:'World of Self, Family and Friends',w:[
+['yesterday','Today is Tuesday. ___ was Monday.'],['visited','We went by car and ___ my grandmother in Kelantan.'],['played','My friends and I ___ hide-and-seek yesterday.'],['watched','She ___ a film last night.'],['helped','He ___ his mum carry the bags.'],['cooked','Dad ___ curry for dinner.'],['walked','We ___ to the shop because it was near.'],['cleaned','They swept and ___ the classroom floor.']],
+ s:['I was at home yesterday','Where were you yesterday?','We were at the park']},
+{t:'On holiday',th:'World of Self, Family and Friends',w:[
+['beach','We build sandcastles on the ___.'],['sea','The big blue ___ has waves.'],['island','Langkawi is a beautiful ___.'],['hotel','We sleep in a ___ on holiday.'],['suitcase','I pack my clothes in a ___.'],['camera','Dad takes photos with a ___.'],['ticket','You need a ___ to get on the plane.'],['airport','The plane takes off from the ___.']],
+ s:['We are going to the beach','I packed my suitcase last night','The hotel is near the sea']},
+{t:'The world around us',th:'World of Knowledge',w:[
+['forest','Many tall trees grow in the ___.'],['river','Fish swim in the ___.'],['mountain','Mount Kinabalu is a tall ___.'],['rain','Take an umbrella when there is ___.'],['sun','The ___ gives us light in the day.'],['tiger','The Malayan ___ has orange and black stripes.'],['elephant','The animal with a long trunk and big ears is the ___.'],['bird','A ___ can fly in the sky.']],
+ s:['The tiger lives in the forest','Birds fly in the sky','The river is long and wide']}
+];
+var cur=0, tab='learn', quiz=null, build=null, stars=[];
+try{ stars=JSON.parse(localStorage.getItem('y3stars')||'[]'); }catch(e){ stars=[]; }
+if(!Array.isArray(stars)) stars=[];
+function save(){ try{ localStorage.setItem('y3stars',JSON.stringify(stars)); }catch(e){} }
+function shuffle(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i];a[i]=a[j];a[j]=t; } return a; }
+function say(text){ try{ if(!window.speechSynthesis) return; speechSynthesis.cancel(); var u=new SpeechSynthesisUtterance(text.replace(/___/g,'blank')); u.lang='en-GB'; u.rate=.85; speechSynthesis.speak(u); }catch(e){} }
+function starText(n){ n=n||0; return '★★★'.slice(0,n)+'☆☆☆'.slice(0,3-n); }
+function $(id){ return document.getElementById(id); }
+
+function renderMods(){
+  var h='', sum=0;
+  MODULES.forEach(function(m,i){ var s=stars[i]||0; sum+=s;
+    h+='<button class="mod" data-mod="'+i+'" aria-pressed="'+(i===cur)+'"><span class="n">Module '+(i+1)+'</span><span class="t">'+m.t+'</span><span class="s">'+starText(s)+'</span></button>'; });
+  $('mods').innerHTML=h; $('total').textContent=sum+' of '+(MODULES.length*3)+' stars';
+}
+function head(){
+  var m=MODULES[cur];
+  var h='<p class="theme">Theme: '+m.th+'</p><h3 class="modtitle">Module '+(cur+1)+': '+m.t+'</h3><div class="tabs" role="tablist">';
+  [['learn','Learn words'],['quiz','Word quiz'],['build','Build sentences']].forEach(function(t){
+    h+='<button class="tab" role="tab" data-tab="'+t[0]+'" aria-selected="'+(tab===t[0])+'">'+t[1]+'</button>'; });
+  return h+'</div>';
+}
+function renderLearn(){
+  var m=MODULES[cur], h='<div class="cards">';
+  m.w.forEach(function(p,i){
+    var full=p[1].replace('___','<mark>'+p[0]+'</mark>');
+    h+='<div class="card"><span class="w">'+p[0]+'</span><p>'+full+'</p><div class="row"><button class="btn" data-say="'+i+'" data-part="w">Hear word</button><button class="btn ghost" data-say="'+i+'" data-part="s">Hear sentence</button></div></div>'; });
+  return h+'</div>';
+}
+function startQuiz(){ quiz={order:shuffle(MODULES[cur].w.map(function(_,i){return i;})),i:0,score:0,picked:null}; }
+function renderQuiz(){
+  var m=MODULES[cur];
+  if(!quiz) startQuiz();
+  if(quiz.i>=quiz.order.length){
+    var n=quiz.score, st=n>=8?3:n>=5?2:n>=3?1:0;
+    if(st>(stars[cur]||0)){ stars[cur]=st; save(); renderMods(); }
+    return '<div class="done"><div class="big">'+starText(st)+'</div><h3 class="modtitle">You got '+n+' out of '+quiz.order.length+'</h3><p>'+(st===3?'Perfect round. Try another module!':'Play again to win more stars.')+'</p><button class="btn" data-act="again">Play again</button></div>';
+  }
+  var idx=quiz.order[quiz.i], p=m.w[idx];
+  if(!quiz.opts){ var others=shuffle(m.w.filter(function(_,k){return k!==idx;})).slice(0,2).map(function(x){return x[0];}); quiz.opts=shuffle([p[0]].concat(others)); }
+  var h='<div class="meta"><span>Question '+(quiz.i+1)+' of '+quiz.order.length+'</span><span>Score '+quiz.score+'</span></div><div class="bar"><i style="width:'+(quiz.i/quiz.order.length*100)+'%"></i></div>';
+  h+='<p class="q">'+p[1].replace('___','<span class="blank">'+(quiz.picked?p[0]:'&nbsp;&nbsp;&nbsp;')+'</span>')+'</p><div class="opts">';
+  quiz.opts.forEach(function(o){
+    var c='opt'; if(quiz.picked){ if(o===p[0]) c+=' good'; else if(o===quiz.picked) c+=' bad'; }
+    h+='<button class="'+c+'" data-opt="'+o+'"'+(quiz.picked?' disabled':'')+'>'+o+'</button>'; });
+  h+='</div><p class="msg '+(quiz.picked===p[0]?'good':'bad')+'">'+(quiz.picked?(quiz.picked===p[0]?'Correct! Well done.':'Not this time. The answer is "'+p[0]+'".'):'')+'</p>';
+  if(quiz.picked) h+='<button class="btn" data-act="next">'+(quiz.i+1>=quiz.order.length?'See my stars':'Next question')+'</button>';
+  return h;
+}
+function startBuild(){ build={i:0,placed:[],pool:null,ok:false}; }
+function renderBuild(){
+  var m=MODULES[cur];
+  if(!build) startBuild();
+  if(build.i>=m.s.length){ return '<div class="done"><div class="big">Well done!</div><p>You built all '+m.s.length+' sentences.</p><button class="btn" data-act="rebuild">Build again</button></div>'; }
+  var words=m.s[build.i].split(' ');
+  if(!build.pool) build.pool=shuffle(words.map(function(w,k){return {w:w,k:k};}));
+  var h='<div class="meta"><span>Sentence '+(build.i+1)+' of '+m.s.length+'</span></div><p style="margin:6px 0 10px">Tap the words in the right order.</p><div class="tray" aria-label="Your sentence">';
+  build.placed.forEach(function(t){ h+='<button class="tile" data-un="'+t.k+'">'+t.w+'</button>'; });
+  h+='</div><div class="row" style="margin-bottom:12px">';
+  build.pool.forEach(function(t){ if(!build.placed.some(function(x){return x.k===t.k;})) h+='<button class="tile" data-pick="'+t.k+'">'+t.w+'</button>'; });
+  h+='</div>';
+  var full=build.placed.length===words.length, right=full&&build.placed.map(function(t){return t.w;}).join(' ')===m.s[build.i];
+  if(right) say(m.s[build.i]);
+  h+='<p class="msg '+(right?'good':'bad')+'">'+(right?'Correct! "'+m.s[build.i]+'"':(full?'Almost. Tap a word to take it back and try again.':''))+'</p>';
+  h+='<div class="row"><button class="btn ghost" data-act="clear">Clear</button>'+(right?'<button class="btn" data-act="bnext">'+(build.i+1>=m.s.length?'Finish':'Next sentence')+'</button>':'')+'</div>';
+  return h;
+}
+function render(){
+  renderMods();
+  var body= tab==='learn'?renderLearn():tab==='quiz'?renderQuiz():renderBuild();
+  $('work').innerHTML=head()+body;
+}
+document.addEventListener('click',function(e){
+  var b=e.target.closest('button'); if(!b) return;
+  var m=MODULES[cur];
+  if(b.dataset.mod!==undefined){ cur=+b.dataset.mod; quiz=null; build=null; tab='learn'; render(); return; }
+  if(b.dataset.tab){ tab=b.dataset.tab; render(); return; }
+  if(b.dataset.say!==undefined){ var p=m.w[+b.dataset.say]; say(b.dataset.part==='w'?p[0]:p[1].replace('___',p[0])); return; }
+  if(b.dataset.opt!==undefined){ var cw=m.w[quiz.order[quiz.i]]; quiz.picked=b.dataset.opt; if(quiz.picked===cw[0]){ quiz.score++; say(cw[1].replace('___',cw[0])); } render(); return; }
+  if(b.dataset.pick!==undefined){ var k=+b.dataset.pick; var t=build.pool.filter(function(x){return x.k===k;})[0]; build.placed.push(t); render(); return; }
+  if(b.dataset.un!==undefined){ var k2=+b.dataset.un; build.placed=build.placed.filter(function(x){return x.k!==k2;}); render(); return; }
+  var a=b.dataset.act; if(!a) return;
+  if(a==='next'){ quiz.i++; quiz.picked=null; quiz.opts=null; render(); }
+  else if(a==='again'){ startQuiz(); render(); }
+  else if(a==='clear'){ build.placed=[]; render(); }
+  else if(a==='bnext'){ build.i++; build.placed=[]; build.pool=null; render(); }
+  else if(a==='rebuild'){ startBuild(); render(); }
+});
+render();
+</script>
+
+</body></html>
